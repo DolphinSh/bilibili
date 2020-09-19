@@ -17,6 +17,15 @@ public class VideoController {
     @Autowired
     VideoService videoService;
 
+    @PostMapping("/video/type")
+    @ResponseBody
+    public MsgData insertVideoType(VideoType videoType){
+        if(videoType==null)
+            return MsgData.ERROR.data(null);
+        boolean success = videoService.insertVideoType(videoType);
+        return success ? MsgData.SUCCESS.data(videoType) : MsgData.FAIL.data(videoType);
+    }
+
     @GetMapping("/video/type")
     @ResponseBody
     public MsgData getVideoTypeList() {

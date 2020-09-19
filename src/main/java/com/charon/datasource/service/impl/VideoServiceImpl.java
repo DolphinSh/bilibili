@@ -24,7 +24,7 @@ public class VideoServiceImpl implements VideoService {
         Integer rows = videoTypeMapper.updateVideoType(videoType);
 
         if (rows == null)
-            throw new NullPointerException("数据库更新操作异常,返回值不为空");
+            throw new NullPointerException("数据库更新操作异常,返回值不应为空");
 
         if (rows == 0)
             return false;
@@ -42,7 +42,23 @@ public class VideoServiceImpl implements VideoService {
         Integer rows = videoTypeMapper.deleteVideoTypeById(id);
 
         if (rows == null)
-            throw new NullPointerException("数据库删除操作异常，返回值不为空");
+            throw new NullPointerException("数据库删除操作异常，返回值不应为空");
+
+        if (rows == 0)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public boolean insertVideoType(VideoType videoType) {
+        if (videoType == null)
+            throw new NullPointerException("欲添加的数据不能为空");
+
+        Integer rows = videoTypeMapper.insertVideoType(videoType);
+
+        if (rows == null)
+            throw new NullPointerException("数据库添加操作异常，返回值不应为空");
 
         if (rows == 0)
             return false;

@@ -60,12 +60,12 @@
             if (obj.event === 'del') {
                 layer.confirm('确定删除此分类？', function (index) {
                     $.ajax({
-                        url: "/video/type/"+obj.data.id,
+                        url: "/video/type/" + obj.data.id,
                         type: "DELETE",
-                        success: function(res){
+                        success: function (res) {
                             console.log(res);
                         },
-                        error: function(res){
+                        error: function (res) {
                             console.error(res);
                         }
                     });
@@ -99,10 +99,10 @@
                                 classify: classify,
                                 description: description
                             },
-                            success: function(res){
+                            success: function (res) {
                                 console.log(res);
                             },
-                            error: function(res){
+                            error: function (res) {
                                 console.error(res);
                             }
                         });
@@ -130,13 +130,28 @@
                     type: 2
                     , title: '添加分类'
                     , content: 'tagsform.html'
-                    , area: ['450px', '200px']
+                    , area: ['450px', '250px']
                     , btn: ['确定', '取消']
                     , yes: function (index, layero) {
                         var othis = layero.find('iframe').contents().find("#layuiadmin-app-form-tags"),
-                            tags = othis.find('input[name="tags"]').val();
+                            classify = othis.find('input[name="classify"]').val(),
+                            description = othis.find('input[name="description"]').val();
 
-                        if (!tags.replace(/\s/g, '')) return;
+                        $.ajax({
+                            url: "/video/type",
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                classify: classify,
+                                description: description
+                            },
+                            success: function (res){
+                                console.log(res);
+                            },
+                            error: function (res){
+                                console.error(res);
+                            }
+                        });
 
                         table.reload('LAY-app-content-tags');
                         layer.close(index);

@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface VideoService {
 
+    boolean insertVideoType(VideoType videoType);
+
     List<VideoType> getVideoTypeList();
 
     boolean updateVideoType(VideoType videoType);
