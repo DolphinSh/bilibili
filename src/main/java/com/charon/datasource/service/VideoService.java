@@ -9,4 +9,6 @@ public interface VideoService {
     List<VideoType> getVideoTypeList();
 
     boolean updateVideoType(VideoType videoType);
+
+    boolean deleteVideoType(VideoType videoType);
 }

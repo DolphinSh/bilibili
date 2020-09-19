@@ -59,8 +59,16 @@
             var data = obj.data;
             if (obj.event === 'del') {
                 layer.confirm('确定删除此分类？', function (index) {
-                    console.log(obj);
-                    console.log("Delete resource success!");
+                    $.ajax({
+                        url: "/video/type/"+obj.data.id,
+                        type: "DELETE",
+                        success: function(res){
+                            console.log(res);
+                        },
+                        error: function(res){
+                            console.error(res);
+                        }
+                    });
                     /**
                      * 此处提交Delete请求
                      */

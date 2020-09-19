@@ -22,8 +22,27 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public boolean updateVideoType(VideoType videoType) {
         Integer rows = videoTypeMapper.updateVideoType(videoType);
+
         if (rows == null)
-            throw new NullPointerException("更新数据库异常");
+            throw new NullPointerException("数据库更新操作异常,返回值不为空");
+
+        if (rows == 0)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public boolean deleteVideoType(VideoType videoType) {
+        Integer id = videoType.getId();
+
+        if (id == null)
+            throw new NullPointerException("欲删除数据的id不能为空");
+
+        Integer rows = videoTypeMapper.deleteVideoTypeById(id);
+
+        if (rows == null)
+            throw new NullPointerException("数据库删除操作异常，返回值不为空");
 
         if (rows == 0)
             return false;

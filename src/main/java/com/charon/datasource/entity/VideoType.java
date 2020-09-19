@@ -9,4 +9,8 @@ public class VideoType {
     private Integer id;
     private String classify;
     private String description;
+
+    public VideoType(Integer id) {
+        this.id = id;
+    }
 }
