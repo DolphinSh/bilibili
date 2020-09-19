@@ -18,4 +18,16 @@ public class VideoServiceImpl implements VideoService {
     public List<VideoType> getVideoTypeList() {
         return videoTypeMapper.getVideoType();
     }
+
+    @Override
+    public boolean updateVideoType(VideoType videoType) {
+        Integer rows = videoTypeMapper.updateVideoType(videoType);
+        if (rows == null)
+            throw new NullPointerException("更新数据库异常");
+
+        if (rows == 0)
+            return false;
+
+        return true;
+    }
 }

@@ -106,7 +106,7 @@ layui.define(['table', 'form'], function(exports){
       layer.open({
         type: 2
         ,title: '编辑分类'
-        ,content: '../../../views/app/content/tagsform.html?id='+ data.id
+        ,content: '/views/app/content/tagsform.html?id='+ data.id
         ,area: ['450px', '200px']
         ,btn: ['确定', '取消']
         ,yes: function(index, layero){

@@ -1,10 +1,10 @@
 package com.charon.datasource.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data //Getter and Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class VideoType {
     private Integer id;
     private String classify;

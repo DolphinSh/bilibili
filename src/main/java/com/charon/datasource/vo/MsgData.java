@@ -1,28 +1,27 @@
 package com.charon.datasource.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class MsgData<T> {
     private Integer code;
     @JsonProperty("msg")
     private String message;
     private T data;
 
-    public static MsgData SUCCESS = new MsgData(0, "success");
-    public static MsgData FAIL = new MsgData(1, "fail");
-    public static MsgData ERROR = new MsgData(-1, "error");
+    public final static MsgData SUCCESS = new MsgData(0, "success", null);
+    public final static MsgData FAIL = new MsgData(1, "fail", null);
+    public final static MsgData ERROR = new MsgData(-1, "error", null);
 
     public MsgData() {
 
     }
 
-    public MsgData(Integer code, String message) {
+    public MsgData(Integer code, String message, T data) {
         this.code = code;
         this.message = message;
+        this.data = data;
     }
 
     public MsgData data(T data) {
