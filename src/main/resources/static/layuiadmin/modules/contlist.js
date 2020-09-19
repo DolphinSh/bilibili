@@ -79,11 +79,15 @@ layui.define(['table', 'form'], function(exports){
   //分类管理
   table.render({
     elem: '#LAY-app-content-tags'
-    ,url: layui.setter.base + 'json/content/tags.js' //模拟接口
+    ,url: "/video/type"
+    // ,parseData: function(res){
+    //   return res.data;
+    // }
     ,cols: [[
       {type: 'numbers', fixed: 'left'}
       ,{field: 'id', width: 100, title: 'ID', sort: true}
-      ,{field: 'tags', title: '分类名', minWidth: 100}
+      ,{field: 'classify', title: '分类', minWidth: 50}
+      ,{field: 'description', title: '描述', minWidth: 200}
       ,{title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#layuiadmin-app-cont-tagsbar'}
     ]]
     ,text: '对不起，加载出现异常！'
