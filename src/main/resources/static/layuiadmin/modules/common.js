@@ -17,7 +17,26 @@ layui.define(function(exports){
   
   //公共业务的逻辑处理可以写在此处，切换任何页面都会执行
   //……
-  
+  var common = {
+    /**
+     * 抛出一个异常错误信息
+     * @param {String} msg
+     */
+    throwError: function(msg) {
+      throw new Error(msg);
+      return;
+    },
+    /**
+     * 弹出一个错误提示
+     * @param {String} msg
+     */
+    msgError: function(msg) {
+      layer.msg(msg, {
+        icon: 5
+      });
+      return;
+    }
+  };
   
   
   //退出
@@ -36,8 +55,6 @@ layui.define(function(exports){
       }
     });
   };
-
-  
   //对外暴露的接口
   exports('common', {});
 });
