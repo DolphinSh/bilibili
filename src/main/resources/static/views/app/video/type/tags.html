@@ -38,20 +38,20 @@
             $ = layui.$;
 
         //渲染列表
-        table.render({
-            elem: '#LAY-app-content-tags'
-            , url: "/video/type"
+        var tableIns = table.render({
+            elem: '#LAY-app-content-tags',
+            url: "/video/type",
             // ,parseData: function(res){
             //   return res.data;
-            // }
-            , cols: [[
-                {type: 'numbers', fixed: 'left'}
-                , {field: 'id', width: 100, title: 'ID', sort: true}
-                , {field: 'classify', width: 100, title: '分类', minWidth: 50}
-                , {field: 'description', title: '描述', minWidth: 200}
-                , {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#layuiadmin-app-cont-tagsbar'}
-            ]]
-            , text: '加载异常'
+            // },
+            cols: [[
+                {type: 'numbers', fixed: 'left'},
+                {field: 'id', width: 100, title: 'ID', sort: true},
+                {field: 'classify', width: 100, title: '分类', minWidth: 50},
+                {field: 'description', title: '描述', minWidth: 200},
+                {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#layuiadmin-app-cont-tagsbar'}
+            ]],
+            text: '加载异常'
         });
 
         //监听工具条
@@ -59,6 +59,7 @@
             var data = obj.data;
             if (obj.event === 'del') {
                 layer.confirm('确定删除此分类？', function (index) {
+                    //请求数据
                     $.ajax({
                         url: "/video/type/" + obj.data.id,
                         type: "DELETE",
@@ -69,9 +70,8 @@
                             console.error(res);
                         }
                     });
-                    /**
-                     * 此处提交Delete请求
-                     */
+
+                    //删除表项
                     obj.del();
                     layer.close(index);
                 });
@@ -107,6 +107,7 @@
                             }
                         });
 
+                        //更新列表
                         obj.update({
                             classify: classify,
                             description: description
@@ -137,6 +138,7 @@
                             classify = othis.find('input[name="classify"]').val(),
                             description = othis.find('input[name="description"]').val();
 
+                        //请求数据
                         $.ajax({
                             url: "/video/type",
                             type: "POST",
@@ -145,15 +147,23 @@
                                 classify: classify,
                                 description: description
                             },
-                            success: function (res){
-                                console.log(res);
+                            success: function (res) {
+                                //console.log(res);
+                                if (res.code == 0) {
+                                    //重载数据列表
+                                    tableIns.reload({
+                                        url: '/video/type'
+                                    });
+                                    layer.msg("添加成功");
+                                } else {
+                                    layer.msg("添加失败");
+                                }
                             },
-                            error: function (res){
+                            error: function (res) {
                                 console.error(res);
                             }
                         });
 
-                        table.reload('LAY-app-content-tags');
                         layer.close(index);
                     }
                 });

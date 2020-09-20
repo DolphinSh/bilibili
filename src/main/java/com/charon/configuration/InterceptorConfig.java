@@ -12,6 +12,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new TestHandlerInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/**/*.js", "/**/*.css");
+                .excludePathPatterns("/**/*.js", "/**/*.css", "/**/font/**");
     }
 }
