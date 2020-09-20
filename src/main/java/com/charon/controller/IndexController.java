@@ -19,6 +19,10 @@ public class IndexController {
     public String view_index() {
         return "index";
     }
+    @GetMapping("/setting/menu_setting")
+    public String view_menuSetting() {
+        return "setting/menu_setting";
+    }
 
     @GetMapping("/api/getMenus")
     @ResponseBody
