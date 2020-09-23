@@ -1,16 +1,14 @@
 package com.charon.datasource.service;
 
-import com.charon.datasource.entity.VideoType;
+import com.charon.datasource.entity.Video;
 
 import java.util.List;
 
 public interface VideoService {
 
-    boolean insertVideoType(VideoType videoType);
+    List<Video> getVideoList();
 
-    List<VideoType> getVideoTypeList();
+    boolean updateVideo(Video video);
 
-    boolean updateVideoType(VideoType videoType);
-
-    boolean deleteVideoType(VideoType videoType);
+    boolean deleteVideoById(Video video);
 }
