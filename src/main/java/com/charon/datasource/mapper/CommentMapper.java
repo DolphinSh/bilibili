@@ -3,9 +3,7 @@ package com.charon.datasource.mapper;
 import com.charon.datasource.entity.Comment;
 import org.apache.ibatis.annotations.*;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface CommentMapper {

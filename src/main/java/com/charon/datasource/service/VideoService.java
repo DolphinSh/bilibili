@@ -8,6 +8,8 @@ public interface VideoService {
 
     List<Video> getVideoList();
 
+    List<Video> getVideoByStatus(Integer status);
+
     boolean updateVideo(Video video);
 
     boolean deleteVideoById(Video video);

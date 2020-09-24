@@ -20,6 +20,11 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    public List<Video> getVideoByStatus(Integer status) {
+        return videoMapper.getVideoByStatus(status);
+    }
+
+    @Override
     public boolean updateVideo(Video video) {
         Integer rows = videoMapper.updateVideo(video);
 

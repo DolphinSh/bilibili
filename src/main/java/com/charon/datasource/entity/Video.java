@@ -17,7 +17,7 @@ public class Video {
     private Date createTime;
     private Date updateTime;
     private Integer status;
-    private Integer type;
+    private String type;
 
     public Video(Integer id) {
         this.id = id;
