@@ -12,8 +12,9 @@ import java.util.Date;
 //@ToString
 public class Comment {
     private Integer id;
+    private Integer video;
+    private Integer commentId;
     private Integer aimId;
-    private Integer type;
     private String content;
     private Integer uid;
     private Integer status;
