@@ -15,8 +15,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.min.css">
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="./css/style.css">
-  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="../auth/login/css/style.css">
+  <link rel="stylesheet" href="../auth/login/css/components.css">
 
 </head>
 
@@ -27,7 +27,7 @@
       <div class="d-flex flex-wrap align-items-stretch">
         <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
           <div class="p-4 m-3">
-            <img src="./img/favorite.ico" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
+            <img src="../auth/login/img/favorite.ico" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
             <h4 class="text-dark font-weight-normal">欢迎使用 <span class="font-weight-bold">bilibili后台</span></h4>
             <p class="text-muted">君の指先に浮かぶ电光は、私の一生不変の信仰であり！</p>
 
@@ -93,7 +93,7 @@
         </div>
         <div
           class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom"
-          data-background="img/login-bg.jpg">
+          data-background="../auth/login/img/login-bg.jpg">
           <div class="absolute-bottom-left index-2">
             <div class="text-light p-5 pb-2">
               <div class="mb-5 pb-3">
@@ -111,25 +111,24 @@
   </div>
 
   <!-- General JS Scripts -->
-  <script src="./js/jquery.min.js"></script>
-  <script src="./js/popper.min.js"></script>
-  <script src="./js/tooltip.min.js"></script>
-  <script src="./js/bootstrap.min.js"></script>
-  <script src="./js/jquery.nicescroll.min.js"></script>
-  <script src="./js/moment.min.js"></script>
+  <script src="../auth/login/js/jquery.min.js"></script>
+  <script src="../auth/login/js/popper.min.js"></script>
+  <script src="../auth/login/js/tooltip.min.js"></script>
+  <script src="../auth/login/js/bootstrap.min.js"></script>
+  <script src="../auth/login/js/jquery.nicescroll.min.js"></script>
+  <script src="../auth/login/js/moment.min.js"></script>
 
   <!-- JS Libraies -->
-  <script src="./js/sweetalert2.all.min.js"></script>
-  <script src="./js/clipboard.min.js"></script>
+  <script src="../auth/login/js/sweetalert2.all.min.js"></script>
+  <script src="../auth/login/js/clipboard.min.js"></script>
 
   <!-- Page Specific JS File -->
-  <script src="./js/malio.js?release"></script>
+  <script src="../auth/login/js/malio.js?release"></script>
 
   <script>
     var code = "UG93ZXJlZCBieSA8YSBocmVmPSIvc3RhZmYiPlNTUEFORUw8L2E+Jm5ic3A7";
     $('#copyright').html(atob(code));
   </script>
-
 
   <script>
     var twoFA = false;
