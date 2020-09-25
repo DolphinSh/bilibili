@@ -9,7 +9,6 @@
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
-
 </head>
 <body>
 <div class="layui-card">
@@ -91,15 +90,14 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label layui-form-required">排序号:</label>
+                            <label class="layui-form-label">菜单路径:</label>
                             <div class="layui-input-block">
-                                <input name="orderNumber" placeholder="请输入排序号" type="number" class="layui-input"
-                                       lay-verType="tips" lay-verify="required|number" required/>
+                                <input name="menuPath" placeholder="请输入菜单路径" class="layui-input"/>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="layui-form-item text-right">
+                <div class="layui-form-item layui-inline" style="margin-left:40%">
                     <button class="layui-btn" lay-filter="authoritiesEditSubmit" lay-submit>保存</button>
                     <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
                 </div>
@@ -224,7 +222,8 @@
                    form.on('submit(authoritiesEditSubmit)', function (data) {
                        data.field.parentId = insXmSel.getValue('valueStr');
                        var loadIndex = layer.load(2);
-                       $.get(mData ? '../../layuiadmin/json/setting/ok.js' : '../../layuiadmin/json/setting/ok.js', data.field, function (res) {
+
+                       $.post(mData ? '../../layuiadmin/json/setting/ok.js' : '../../layuiadmin/json/setting/ok.js', data.field, function (res) {
                            layer.close(loadIndex);
                            if (res.code === 200) {
                                layer.close(dIndex);
@@ -292,7 +291,7 @@
                    if (!field[f]) continue;
                    isClear = false;
                    if (!item[f] || item[f].indexOf(field[f]) === -1) {
-                       flag = false;
+                       flag = f0alse;
                        break;
                    }
                }
@@ -304,14 +303,7 @@
                insTb.filterData(ids);
            }
        }
-
-
-
-
-
-
    });
-
 
 </script>
 

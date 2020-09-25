@@ -1,7 +1,7 @@
 package com.charon.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.charon.datasource.entity.TableMenus;
+import com.charon.datasource.entity.TableMenu;
 import com.charon.datasource.entity.TableMsgData;
 import com.charon.datasource.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class MenuTableController {
     @GetMapping("/api/getAllTableMenus")
     public String getAllTableMenus(){
         //获取所有菜单信息
-        List<TableMenus> tableMenus = menuService.getAllTableMenus();
+        List<TableMenu> tableMenus = menuService.getAllTableMenus();
         //装进消息中心
         TableMsgData tableMsgData = new TableMsgData(0,"",tableMenus.size(),tableMenus);
         return JSON.toJSONString(tableMsgData);

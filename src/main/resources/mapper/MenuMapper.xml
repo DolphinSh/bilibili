@@ -19,4 +19,19 @@
     <select id="findMenuByParentId" resultMap="BaseResultMap" >
          select id,name,url,path,css from menu where parentId = #{id}
     </select>
+    <!--传入的是TableMenu 实体对象 ，Mybatis会自动key-value 进行映射对象 -->
+    <insert id="addMenu" parameterType="com.charon.datasource.entity.TableMenu">
+        INSERT INTO menu(parentId,name,url,path,css,type)
+        VALUES (#{parentId},#{authorityName},#{menuUrl},#{menuPath},#{menuIcon},#{isMenu})
+    </insert>
+    <delete id="delMenu">
+        DELETE FROM menu where id = #{id}
+    </delete>
+    <update id="updMenu" parameterType="com.charon.datasource.entity.TableMenu">
+        UPDATE menu SET parentId = #{parentId,jdbcType=INTEGER},name = #{authorityName,jdbcType=VARCHAR},url = #{menuUrl,jdbcType=VARCHAR},path = #{menuPath,jdbcType=VARCHAR},css = #{menuIcon,jdbcType=VARCHAR},type = #{isMenu,jdbcType=INTEGER}
+        WHERE id = #{authorityId}
+    </update>
 </mapper>
+
+
+

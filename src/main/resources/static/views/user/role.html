@@ -79,7 +79,7 @@
                 <textarea name="comments" placeholder="请输入备注" class="layui-textarea"></textarea>
             </div>
         </div>
-        <div class="layui-form-item text-right">
+        <div class="layui-form-item" style="margin-left:40%">
             <button class="layui-btn" lay-filter="roleEditSubmit" lay-submit>保存</button>
             <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
         </div>
@@ -155,26 +155,28 @@
                     layer.msg('请选择要删除的数据', {icon: 2});
                     return;
                 }
-                var ids = checkRows.data.map(function (d) {
-                    return d.roleId;
-                });
-                doDel({ids: ids});
             }
+                // 若勾选多个，通过for循环遍历删除
+                for (let i = 0; i < checkRows.data.length; i++) {
+                    doDels(checkRows.data[i].roleId);
+                }
         });
 
         /* 显示表单弹窗 */
         function showEditModel(mData) {
-            admin.open({
+            layer.open({
                 type: 1,
                 title: (mData ? '修改' : '添加') + '角色',
+                area:'600px',
+                resize: false,//窗口大小不允许拖动
                 content: $('#roleEditDialog').html(),
                 success: function (layero, dIndex) {
                     // 回显表单数据
                     form.val('roleEditForm', mData);
-                    // 表单提交事件
                     form.on('submit(roleEditSubmit)', function (data) {
-                        var loadIndex = layer.load(2);
-                        $.get(mData ? '../../layuiadmin/json/setting/ok.js' : '../../layuiadmin/json/setting/ok.js', data.field, function (res) {
+                    // 表单提交事件
+                    var loadIndex = layer.load(2);
+                        $.post(mData ? '../../api/updPermission' : '../../api/addPermission', data.field, function (res) {
                             layer.close(loadIndex);
                             if (200 === res.code) {
                                 layer.close(dIndex);
@@ -184,11 +186,11 @@
                                 layer.msg(res.msg, {icon: 2});
                             }
                         }, 'json');
-                        return false;
-                    });
-                }
-            });
-        }
+                    return false;
+               });
+            }
+        });
+    }
 
         /* 删除 */
         function doDel(obj) {
@@ -198,24 +200,59 @@
             }, function (i) {
                 layer.close(i);
                 var loadIndex = layer.load(2);
-                $.get('../../layuiadmin/json/setting/ok.js', {
-                    id: obj.data ? obj.data.roleId : '',
-                    ids: obj.ids ? obj.ids.join(',') : ''
-                }, function (res) {
-                    layer.close(loadIndex);
-                    if (200 === res.code) {
-                        layer.msg(res.msg, {icon: 1});
-                        insTb.reload({page: {curr: 1}});
-                    } else {
-                        layer.msg(res.msg, {icon: 2});
-                    }
-                }, 'json');
+                $.ajax({
+                    url:'../../api/delPermission',
+                    method: 'post',
+                    data:{
+                        "id" : obj.data.roleId
+                    },
+                    dataType: "json",
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (res) {
+                        layer.close(loadIndex);
+                        if (200 === res.code) {
+                            layer.msg(res.msg, {icon: 1});
+                            insTb.reload({page: {curr: 1}});
+                        } else {
+                            layer.msg(res.msg, {icon: 2});
+                        }
+                    },
+                })
             });
         }
-
+        /*
+        表格多选删除
+        */
+        function doDels(obj) {
+            layer.confirm('确定要删除选中数据吗？', {
+                skin: 'layui-layer-admin',
+                shade: .1
+            }, function (i) {
+                layer.close(i);
+                var loadIndex = layer.load(2);
+                $.ajax({
+                    url:'../../api/delPermission',
+                    method: 'post',
+                    data:{
+                        "id" : obj
+                    },
+                    dataType: "json",
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (res) {
+                        layer.close(loadIndex);
+                        if (200 === res.code) {
+                            layer.msg(res.msg, {icon: 1});
+                            insTb.reload({page: {curr: 1}});
+                        } else {
+                            layer.msg(res.msg, {icon: 2});
+                        }
+                    },
+                })
+            });
+        }
         /* 权限管理 */
-        /*function showPermModel(roleId) {
-            admin.open({
+        function showPermModel(roleId) {
+            layer.open({
                 title: '角色权限分配',
                 btn: ['保存', '取消'],
                 content: '<ul id="roleAuthTree" class="ztree"></ul>',
@@ -254,9 +291,33 @@
                     }, 'json');
                 }
             });
-        }*/
+        }
+
+        /* 搜索表格数据 */
+        function doTbSearch(field, idName) {
+            var ids = [], isClear = true;
+            for (var i = 0; i < tbDataList.length; i++) {
+                var item = tbDataList[i], flag = true;
+                for (var f in field) {
+                    if (!field.hasOwnProperty(f)) continue;
+                    if (!field[f]) continue;
+                    isClear = false;
+                    if (!item[f] || item[f].indexOf(field[f]) === -1) {
+                        flag = f0alse;
+                        break;
+                    }
+                }
+                if (flag) ids.push(item[idName]);
+            }
+            if (isClear) {
+                insTb.clearFilter();
+            } else {
+                insTb.filterData(ids);
+            }
+        }
 
     });
+
 </script>
 
 

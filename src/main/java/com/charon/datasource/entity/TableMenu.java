@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @JSONType(orders = {"authorityId","authorityName","menuUrl","menuPath","parentId","isMenu","menuIcon","createTime","updateTime"})
-public class TableMenus {
+public class TableMenu {
     private Integer authorityId;
     private String authorityName;
     private String menuUrl;

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.charon.datasource.mapper.UserMapper">
+    <!--新增权限-->
+    <insert id="addPermission" parameterType="com.charon.datasource.entity.Permission">
+        INSERT INTO permission(roleName,code,note) VALUES (#{roleName},#{roleCode},#{comments})
+    </insert>
+    <!--根据id删除权限-->
+    <delete id="delPermission">
+        DELETE FROM permission where id = #{roleId}
+    </delete>
+    <!--更新权限-->
+    <update id="updPermission" parameterType="com.charon.datasource.entity.Permission">
+        UPDATE permission SET roleName=#{roleName},code=#{roleCode},note=#{comments} WHERE
+        id = #{roleId}
+    </update>
+</mapper>
