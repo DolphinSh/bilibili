@@ -16,8 +16,8 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
     ,engine: '.html' //视图文件后缀名
     ,pageTabs: true //是否开启页面选项卡功能。iframe版推荐开启
     
-    ,name: 'layuiAdmin'
-    ,tableName: 'layuiAdmin' //本地存储表名
+    ,name: 'bilibili'
+    ,tableName: 'bilibili' //本地存储表名
     ,MOD_NAME: 'admin' //模块事件名
     
     ,debug: true //是否开启调试模式。如开启，接口异常时会抛出异常 URL 等信息
@@ -41,7 +41,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
     //扩展的第三方模块
     ,extend: [
       'echarts', //echarts 核心包
-      'echartsTheme' //echarts 主题
+      'echartsTheme',//echarts 主题
     ]
     
     //主题配置

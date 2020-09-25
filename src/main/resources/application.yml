@@ -40,3 +40,11 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     # 合并多个DruidDataSource的监控数据
     useGlobalDataSourceStat: true
+  freemarker:
+    check-template-location: false
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.charon.datasource.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

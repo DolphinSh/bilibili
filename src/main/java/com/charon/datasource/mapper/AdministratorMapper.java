@@ -7,6 +7,6 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface AdministratorMapper {
 
-    @Select("select * from administrator where id=#{id}")
+    @Select("select id from administrator where id=#{id}")
     Administrator getAdministratorById(Integer id);
 }
