@@ -12,17 +12,17 @@ public class TestHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("资源访问：{}", request.getRequestURI());
+        log.info("资源访问({})：{}", request.getMethod(), request.getRequestURI());
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        log.info("视图渲染");
+        //log.info("视图渲染");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        log.info("请求完毕");
+        //log.info("请求完毕");
     }
 }
