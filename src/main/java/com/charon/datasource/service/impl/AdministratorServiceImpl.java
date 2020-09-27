@@ -16,4 +16,8 @@ public class AdministratorServiceImpl implements AdministratorService {
     public Administrator getAdministratorById(Integer id) {
         return administratorMapper.getAdministratorById(id);
     }
+
+    public Administrator getAdministratorByUsername(String username){
+        return administratorMapper.getAdministratorByUsername(username);
+    }
 }

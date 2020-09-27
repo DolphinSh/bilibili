@@ -1,5 +1,6 @@
 package com.charon.datasource.vo;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -28,4 +29,16 @@ public class MsgData<T> {
         this.data = data;
         return this;
     }
+=======
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class MsgData {
+    private Integer code;
+    private String msg;
+>>>>>>> 3ed750d... 新增：登录拦截器
 }
