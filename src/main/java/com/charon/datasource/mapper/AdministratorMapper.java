@@ -9,4 +9,7 @@ public interface AdministratorMapper {
 
     @Select("select * from administrator where id=#{id}")
     Administrator getAdministratorById(Integer id);
+
+    @Select("select * from administrator where username=#{username}")
+    Administrator getAdministratorByUsername(String username);
 }
