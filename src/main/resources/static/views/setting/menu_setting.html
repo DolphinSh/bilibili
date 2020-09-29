@@ -16,15 +16,9 @@
         <form class="layui-form toolbar">
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">权限名称:</label>
+                    <label class="layui-form-label">菜单名称:</label>
                     <div class="layui-input-inline">
                         <input name="authorityName" class="layui-input" placeholder="输入权限名称">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">菜单url:</label>
-                    <div class="layui-input-inline">
-                        <input name="menuUrl" class="layui-input" placeholder="输入路由地址">
                     </div>
                 </div>
 
@@ -66,7 +60,7 @@
                             <label class="layui-form-label layui-form-required">权限类型:</label>
                             <div class="layui-input-block">
                                 <input name="isMenu" type="radio" value="0" title="菜单" checked/>
-                                <input name="isMenu" type="radio" value="1" title="按钮"/>
+                                <input name="isMenu" type="radio" value="1" title="资源"/>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -99,7 +93,7 @@
                 </div>
                 <div class="layui-form-item layui-inline" style="margin-left:40%">
                     <button class="layui-btn" lay-filter="authoritiesEditSubmit" lay-submit>保存</button>
-                    <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+                    <button class="layui-btn layui-btn-primary layui-layer-close" type="button">取消</button>
                 </div>
             </form>
         </script>
@@ -113,15 +107,14 @@
         base: '../../layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index', //主入口模块
-        treeTable: 'modules/treeTable',
+        treeTable: 'treeTable',
         xmSelect: 'xmSelect'
-    }).use('index');
+    }).use('index','treeTable','xmSelect');
 
    layui.use(['layer', 'form', 'admin', 'treeTable', 'table', 'util', 'xmSelect'],function () {
         var $ = layui.jquery;
         var layer = layui.layer;
         var form = layui.form;
-        var admin = layui.admin;
         var treeTable = layui.treeTable;
         var util = layui.util;
         var xmSelect = layui.xmSelect;
@@ -176,7 +169,6 @@
                showEditModel(obj.data);
            } else if (obj.event === 'del') { // 删除
                doDel(obj);
-
            }
        });
 
@@ -190,15 +182,18 @@
                    layer.msg('请选择要删除的数据', {icon: 2});
                    return;
                }
-               var ids = checkRows.map(function (d) {
-                   return d.authorityId;
-               });
-               doDel({ids: ids});
+               //console.log(checkRows);
+               // 若勾选多个，通过for循环遍历删除
+               for (let i = 1; i < checkRows.length; i++) {
+                   var id = checkRows[i].authorityId;
+                   console.log("获得到id为")
+                   doDel({ids: id});
+               }
            }
        });
        /* 表格搜索 */
        form.on('submit(authoritiesTbSearch)', function (data) {
-           doTbSearch(data.field, 'authorityId');
+           doTbSearch(data.field,"authorityId");
            return false;
        });
 
@@ -223,7 +218,7 @@
                        data.field.parentId = insXmSel.getValue('valueStr');
                        var loadIndex = layer.load(2);
 
-                       $.post(mData ? '../../layuiadmin/json/setting/ok.js' : '../../layuiadmin/json/setting/ok.js', data.field, function (res) {
+                       $.post(mData ? '../../api/updTableMenu' : '../../api/addTableMenu', data.field, function (res) {
                            layer.close(loadIndex);
                            if (res.code === 200) {
                                layer.close(dIndex);
@@ -233,6 +228,10 @@
                                layer.msg(res.msg, {icon: 2});
                            }
                        }, 'json');
+                       //延时，保证数据提交后再刷新
+                       sleep(800);
+                       //父页面菜单刷新
+                       reloadParentLeftNav();
                        return false;
                    });
                    // 渲染下拉树
@@ -259,6 +258,7 @@
                    $(layero).children('.layui-layer-content').css('overflow', 'visible');
                }
            });
+
        }
 
        /* 删除 */
@@ -269,7 +269,7 @@
            }, function (i) {
                layer.close(i);
                var loadIndex = layer.load(2);
-               $.get('../../layuiadmin/json/setting/ok.js', {id: obj.data ? obj.data.authorityId : obj.ids}, function (res) {
+               $.post('../../api/delTableMenuById', {id: obj.data ? obj.data.authorityId : obj.ids}, function (res) {
                    layer.close(loadIndex);
                    if (res.code === 200) {
                        layer.msg(res.msg, {icon: 1});
@@ -278,10 +278,13 @@
                        layer.msg(res.msg, {icon: 2});
                    }
                }, 'json');
+               //父页面菜单刷新
+               reloadParentLeftNav();
            });
        }
 
        /* 搜索表格数据 */
+
        function doTbSearch(field, idName) {
            var ids = [], isClear = true;
            for (var i = 0; i < tbDataList.length; i++) {
@@ -291,7 +294,7 @@
                    if (!field[f]) continue;
                    isClear = false;
                    if (!item[f] || item[f].indexOf(field[f]) === -1) {
-                       flag = f0alse;
+                       flag = false;
                        break;
                    }
                }
@@ -304,7 +307,23 @@
            }
        }
    });
+    /**
+     * 刷新父页面的左侧菜单
+     *
+     */
+    function reloadParentLeftNav() {
+        window.parent.clearLeftNav();
+        window.parent.load();
+    }
 
+    /**
+     * 延时
+     * @param time
+     */
+    var sleep = function(time) {
+        var startTime = new Date().getTime() + parseInt(time, 10);
+        while(new Date().getTime() < startTime) {}
+    };
 </script>
 
 

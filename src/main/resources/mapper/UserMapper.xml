@@ -16,4 +16,31 @@
         UPDATE permission SET roleName=#{roleName},code=#{roleCode},note=#{comments} WHERE
         id = #{roleId}
     </update>
+    <!--新增管理员-->
+    <insert id="addAdministrator" parameterType="com.charon.datasource.entity.Administrator">
+        INSERT INTO administrator(username,password,nickname,mobile,gender,permission) VALUES (
+        #{username},#{password},#{nickname},#{mobile},#{gender},#{permission})
+    </insert>
+    <!--删除管理员-->
+    <delete id="delAdministrator">
+        DELETE FROM administrator WHERE id = #{id}
+    </delete>
+    <!--更新管理员-->
+    <update id="updAdministrator" parameterType="com.charon.datasource.entity.Administrator">
+        UPDATE administrator SET username=#{username},password=#{password},nickname=#{password},head_img_url=#{head_img_url},
+        mobile=#{mobile},gender=#{gender},enabled=#{enabled},is_del=#{is_del} WHERE id = #{id}
+    </update>
+    <!--新增用户-->
+    <insert id="addUser" parameterType="com.charon.datasource.entity.User">
+        INSERT INTO user(uid,nickname,password,gender,age) VALUES (#{uid},#{nickname},#{password},#{gender},#{age})
+    </insert>
+    <!--删除用户-->
+    <delete id="delUser">
+        DELETE FROM user WHERE id = #{id}
+    </delete>
+    <!--更新用户-->
+    <update id="updUser" parameterType="com.charon.datasource.entity.User">
+        UPDATE user SET uid=#{uid},nickname=#{nickname},password=#{password},head_img_url=#{head_img_url},level=#{level},
+        gender=#{gender},age=#{age},enable=#{enable},is_del=#{is_del}  WHERE id = #{id}
+    </update>
 </mapper>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>菜单设置</title>
+    <title>角色设置</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -81,7 +81,7 @@
         </div>
         <div class="layui-form-item" style="margin-left:40%">
             <button class="layui-btn" lay-filter="roleEditSubmit" lay-submit>保存</button>
-            <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+            <button class="layui-btn layui-btn-primary layui-layer-close" type="button">取消</button>
         </div>
     </form>
 </script>
@@ -125,7 +125,10 @@
                     }, sort: true
                 },
                 {title: '操作', toolbar: '#roleTbBar', align: 'center', width: 200, minWidth: 200}
-            ]]
+            ]],
+            done: function (data) {
+                tbDataList = data;
+            }
         });
 
         /* 表格搜索 */
@@ -151,15 +154,11 @@
                 showEditModel();
             } else if (obj.event === 'del') { // 删除
                 var checkRows = table.checkStatus('roleTable');
-                if (checkRows.data.length === 0) {
-                    layer.msg('请选择要删除的数据', {icon: 2});
-                    return;
-                }
             }
-                // 若勾选多个，通过for循环遍历删除
-                for (let i = 0; i < checkRows.data.length; i++) {
-                    doDels(checkRows.data[i].roleId);
-                }
+            // 若勾选多个，通过for循环遍历删除
+            for (let i = 0; i < checkRows.data.length; i++) {
+                doDels(checkRows.data[i].roleId);
+            }
         });
 
         /* 显示表单弹窗 */
@@ -258,7 +257,7 @@
                 content: '<ul id="roleAuthTree" class="ztree"></ul>',
                 success: function (layero, dIndex) {
                     var loadIndex = layer.load(2);
-                    $.get('../../json/role-auth-tree.json', {roleId: roleId}, function (res) {
+                    $.get('../../layuiadmin/json/user/authtree.js', {roleId: roleId}, function (res) {
                         layer.close(loadIndex);
                         if (200 === res.code) {
                             $.fn.zTree.init($('#roleAuthTree'), {
@@ -280,7 +279,7 @@
                         ids.push(checkedRows[i].id);
                     }
                     var loadIndex = layer.load(2);
-                    $.get('../../json/ok.json', {roleId: roleId, authIds: ids.join(',')}, function (res) {
+                    $.get('../../layuiadmin/json/setting/ok.js', {roleId: roleId, authIds: ids.join(',')}, function (res) {
                         layer.close(loadIndex);
                         if (200 === res.code) {
                             layer.msg(res.msg, {icon: 1});
@@ -303,7 +302,7 @@
                     if (!field[f]) continue;
                     isClear = false;
                     if (!item[f] || item[f].indexOf(field[f]) === -1) {
-                        flag = f0alse;
+                        flag = false;
                         break;
                     }
                 }
