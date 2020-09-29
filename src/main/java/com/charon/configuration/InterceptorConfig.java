@@ -1,5 +1,6 @@
 package com.charon.configuration;
 
+import com.charon.component.LoginHandlerInterceptor;
 import com.charon.component.TestHandlerInterceptor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -10,8 +11,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new TestHandlerInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("");
+        registry.addInterceptor(new LoginHandlerInterceptor())
+                .addPathPatterns("/index");
     }
 }
