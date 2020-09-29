@@ -5,8 +5,11 @@ import com.charon.datasource.mapper.AdministratorMapper;
 import com.charon.datasource.service.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
+
+@Service("AdministratorService")
+@Transactional
 public class AdministratorServiceImpl implements AdministratorService {
 
     @Autowired

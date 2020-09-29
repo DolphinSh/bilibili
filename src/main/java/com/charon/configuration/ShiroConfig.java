@@ -1,6 +1,7 @@
 package com.charon.configuration;
 
 import com.charon.shiro.config.CustomerRealm;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -23,7 +24,11 @@ public class ShiroConfig {
 
         //配置系统公共资源
         Map<String,String> map = new HashMap<String, String>();
-        map.put("/index","authc");//请求这个资源需要认证和授权
+        //放行资源
+        map.put("/auth/login/**","anon");//anon 设置为公共资源
+        map.put("/token","anon");
+        ///** 拦截项目所有的资源
+        map.put("/**","authc");//请求这个资源需要认证和授权
 
         //默认认证界面路径
         shiroFilterFactoryBean.setLoginUrl("/login");
