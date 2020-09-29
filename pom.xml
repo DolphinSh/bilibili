@@ -108,23 +108,8 @@
         <!-- Spring 整合Shiro需要的依赖 -->
         <dependency>
             <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-web</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-ehcache</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>1.3.2</version>
+            <artifactId>shiro-spring-boot-starter</artifactId>
+            <version>1.5.3</version>
         </dependency>
     </dependencies>
 
@@ -141,6 +126,7 @@
                 <includes>
                     <include>**/*.yml</include>
                     <include>**/*.xml</include>
+                    <include>**/*.ini</include>
                 </includes>
                 <filtering>false</filtering>
             </resource>
